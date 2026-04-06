@@ -44,6 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
   setupFilters();
   setupThemeToggle();
   setupResetButton();
+  setupFiltersToggle();
 });
 
 // ===== BUILD GENRE CHIPS =====
@@ -102,6 +103,9 @@ function renderGames() {
 
   // Update count
   document.getElementById('gameCount').textContent = filtered.length + ' ' + pluralize(filtered.length);
+
+  // Update filters summary (if collapsed)
+  if (typeof updateFiltersSummary === 'function') updateFiltersSummary();
 
   if (filtered.length === 0) {
     grid.innerHTML = '';
@@ -216,4 +220,60 @@ function updateToggleIcon(btn, theme) {
   btn.innerHTML = theme === 'dark'
     ? '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>'
     : '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+}
+
+// ===== FILTERS TOGGLE =====
+function setupFiltersToggle() {
+  const toggle = document.getElementById('filtersToggle');
+  const content = document.getElementById('filtersContent');
+  let isExpanded = true;
+
+  // Auto-collapse on mobile
+  if (window.innerWidth < 768) {
+    isExpanded = false;
+    content.classList.add('collapsed');
+    toggle.setAttribute('aria-expanded', 'false');
+    updateFiltersSummary();
+  }
+
+  toggle.addEventListener('click', () => {
+    isExpanded = !isExpanded;
+    toggle.setAttribute('aria-expanded', String(isExpanded));
+    if (isExpanded) {
+      content.classList.remove('collapsed');
+    } else {
+      content.classList.add('collapsed');
+    }
+    updateFiltersSummary();
+  });
+}
+
+// ===== ACTIVE FILTERS SUMMARY =====
+function updateFiltersSummary() {
+  const summary = document.getElementById('filtersSummary');
+  const toggle = document.getElementById('filtersToggle');
+  const isCollapsed = toggle.getAttribute('aria-expanded') === 'false';
+
+  if (!isCollapsed) {
+    summary.innerHTML = '';
+    return;
+  }
+
+  const tags = [];
+  if (activeGenre !== 'all') {
+    tags.push(genreRu(activeGenre));
+  }
+  if (activeRating !== 'all') {
+    tags.push(activeRating + '+');
+  }
+  const sortLabels = { rank: 'По рангу', rating: 'По рейтингу', year: 'По году', name: 'По имени' };
+  if (activeSort !== 'rank') {
+    tags.push(sortLabels[activeSort]);
+  }
+
+  if (tags.length === 0) {
+    summary.innerHTML = '';
+  } else {
+    summary.innerHTML = tags.map(t => '<span class="summary-tag">' + t + '</span>').join('');
+  }
 }
