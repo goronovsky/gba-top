@@ -1,0 +1,554 @@
+/* ===== DESIGN TOKENS ===== */
+:root {
+  /* Type Scale */
+  --text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+  --text-sm: clamp(0.875rem, 0.8rem + 0.35vw, 1rem);
+  --text-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+  --text-lg: clamp(1.125rem, 1rem + 0.75vw, 1.5rem);
+  --text-xl: clamp(1.5rem, 1.2rem + 1.25vw, 2.25rem);
+  --text-2xl: clamp(2rem, 1.2rem + 2.5vw, 3.5rem);
+  --text-3xl: clamp(2.5rem, 1rem + 4vw, 5rem);
+
+  /* Spacing */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+
+  /* Radius */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-full: 9999px;
+
+  /* Transition */
+  --transition-interactive: 180ms cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Content widths */
+  --content-narrow: 640px;
+  --content-default: 960px;
+  --content-wide: 1200px;
+
+  /* Fonts */
+  --font-display: 'Cabinet Grotesk', 'Helvetica Neue', sans-serif;
+  --font-body: 'Satoshi', 'Inter', sans-serif;
+}
+
+/* ===== GBA-INSPIRED PALETTE: DARK MODE (default) ===== */
+:root,
+[data-theme='dark'] {
+  --color-bg: #0e0f13;
+  --color-surface: #161821;
+  --color-surface-2: #1c1e2a;
+  --color-surface-offset: #1a1c26;
+  --color-border: #2a2d3a;
+  --color-divider: #222430;
+  --color-text: #d8dae5;
+  --color-text-muted: #8b8ea0;
+  --color-text-faint: #555770;
+  --color-text-inverse: #0e0f13;
+  --color-primary: #7b6cf6;
+  --color-primary-hover: #6558d9;
+  --color-primary-active: #5247b8;
+  --color-primary-highlight: rgba(123, 108, 246, 0.12);
+
+  --gba-accent: #7b6cf6;
+  --gba-screen: #1a2a1a;
+  --gba-screen-inner: #2a4a2a;
+  --gba-btn: #555770;
+  --gba-btn-ab: #7b6cf6;
+  --gba-pixel-text: #8aff8a;
+
+  --genre-action: #f97066;
+  --genre-rpg: #a78bfa;
+  --genre-platform: #34d399;
+  --genre-strategy: #fbbf24;
+  --genre-racing: #38bdf8;
+  --genre-sports: #fb923c;
+  --genre-adventure: #f472b6;
+  --genre-puzzle: #2dd4bf;
+
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.3);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+  --shadow-lg: 0 12px 32px rgba(0,0,0,0.5);
+}
+
+[data-theme='light'] {
+  --color-bg: #f0eff5;
+  --color-surface: #faf9ff;
+  --color-surface-2: #f3f2fa;
+  --color-surface-offset: #eae9f2;
+  --color-border: #d4d3e0;
+  --color-divider: #dddce8;
+  --color-text: #1a1a2e;
+  --color-text-muted: #6e6e8a;
+  --color-text-faint: #a0a0b8;
+  --color-text-inverse: #f0eff5;
+  --color-primary: #6352e8;
+  --color-primary-hover: #5040cc;
+  --color-primary-active: #4232b0;
+  --color-primary-highlight: rgba(99, 82, 232, 0.1);
+
+  --gba-accent: #6352e8;
+  --gba-screen: #c8e6c8;
+  --gba-screen-inner: #a8d4a8;
+  --gba-btn: #b0b0c4;
+  --gba-btn-ab: #6352e8;
+  --gba-pixel-text: #2a6a2a;
+
+  --genre-action: #dc2626;
+  --genre-rpg: #7c3aed;
+  --genre-platform: #059669;
+  --genre-strategy: #d97706;
+  --genre-racing: #0284c7;
+  --genre-sports: #ea580c;
+  --genre-adventure: #db2777;
+  --genre-puzzle: #0d9488;
+
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+  --shadow-lg: 0 12px 32px rgba(0,0,0,0.12);
+}
+
+/* ===== HEADER ===== */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: oklch(from var(--color-bg) l c h / 0.85);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.header-inner {
+  max-width: var(--content-wide);
+  margin-inline: auto;
+  padding: var(--space-3) var(--space-4);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--color-text);
+}
+
+.logo-text {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--text-lg);
+  letter-spacing: -0.02em;
+}
+
+.logo-accent {
+  color: var(--color-primary);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.game-count {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  padding: var(--space-1) var(--space-3);
+  background: var(--color-surface);
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-border);
+  font-variant-numeric: tabular-nums;
+}
+
+[data-theme-toggle] {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--radius-md);
+  color: var(--color-text-muted);
+}
+
+[data-theme-toggle]:hover {
+  background: var(--color-surface);
+  color: var(--color-text);
+}
+
+/* ===== HERO ===== */
+.hero {
+  max-width: var(--content-wide);
+  margin-inline: auto;
+  padding: var(--space-12) var(--space-4) var(--space-8);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-8);
+  align-items: center;
+}
+
+@media (min-width: 768px) {
+  .hero {
+    grid-template-columns: 1fr auto;
+    padding: var(--space-16) var(--space-8) var(--space-12);
+  }
+}
+
+.hero-badge {
+  display: inline-block;
+  font-size: var(--text-xs);
+  font-weight: 500;
+  color: var(--color-primary);
+  padding: var(--space-1) var(--space-3);
+  border: 1px solid var(--color-primary);
+  border-radius: var(--radius-full);
+  margin-bottom: var(--space-4);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: var(--text-3xl);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  margin-bottom: var(--space-4);
+}
+
+.hero-accent {
+  background: linear-gradient(135deg, var(--color-primary) 0%, #a78bfa 50%, #f97066 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-desc {
+  font-size: var(--text-base);
+  color: var(--color-text-muted);
+  max-width: 50ch;
+  line-height: 1.7;
+}
+
+.hero-gba {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .hero-gba {
+    display: block;
+    width: 260px;
+  }
+}
+
+.hero-gba-svg {
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 8px 24px rgba(123, 108, 246, 0.15));
+}
+
+/* ===== FILTERS ===== */
+.filters-section {
+  position: sticky;
+  top: 52px;
+  z-index: 40;
+  background: oklch(from var(--color-bg) l c h / 0.9);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--color-border);
+  padding: var(--space-4) 0;
+}
+
+.filters-inner {
+  max-width: var(--content-wide);
+  margin-inline: auto;
+  padding-inline: var(--space-4);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4) var(--space-8);
+  align-items: flex-start;
+}
+
+@media (min-width: 768px) {
+  .filters-inner {
+    padding-inline: var(--space-8);
+  }
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.filter-label {
+  font-size: var(--text-xs);
+  color: var(--color-text-faint);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.filter-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+}
+
+.chip {
+  font-size: var(--text-xs);
+  font-weight: 500;
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  background: transparent;
+  white-space: nowrap;
+  transition:
+    background var(--transition-interactive),
+    color var(--transition-interactive),
+    border-color var(--transition-interactive);
+}
+
+.chip:hover {
+  background: var(--color-surface);
+  color: var(--color-text);
+  border-color: var(--color-text-faint);
+}
+
+.chip.active {
+  background: var(--color-primary);
+  color: #fff;
+  border-color: var(--color-primary);
+}
+
+/* ===== GAMES GRID ===== */
+.games-section {
+  max-width: var(--content-wide);
+  margin-inline: auto;
+  padding: var(--space-8) var(--space-4);
+  min-height: 60vh;
+}
+
+@media (min-width: 768px) {
+  .games-section {
+    padding: var(--space-8);
+  }
+}
+
+.games-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(320px, 100%), 1fr));
+  gap: var(--space-4);
+}
+
+@media (min-width: 1024px) {
+  .games-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ===== GAME CARD ===== */
+.game-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  transition:
+    transform 240ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 240ms cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 240ms cubic-bezier(0.16, 1, 0.3, 1);
+  opacity: 0;
+  transform: translateY(12px);
+  animation: cardIn 400ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes cardIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.game-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--color-primary);
+}
+
+.card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.card-rank {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--text-xl);
+  color: var(--color-primary);
+  line-height: 1;
+  min-width: 2.5rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.card-meta-score {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-variant-numeric: tabular-nums;
+}
+
+.score-bar {
+  width: 44px;
+  height: 6px;
+  background: var(--color-surface-offset, var(--color-border));
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.score-fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  transition: width 600ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.score-value {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.card-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-lg);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.card-info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-2);
+  align-items: center;
+}
+
+.card-year,
+.card-developer {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.card-divider {
+  width: 3px;
+  height: 3px;
+  background: var(--color-text-faint);
+  border-radius: var(--radius-full);
+}
+
+.card-genres {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+}
+
+.genre-tag {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-full);
+  letter-spacing: 0.02em;
+}
+
+.genre-tag[data-genre="Action"] { background: rgba(249,112,102,0.15); color: var(--genre-action); }
+.genre-tag[data-genre="RPG"] { background: rgba(167,139,250,0.15); color: var(--genre-rpg); }
+.genre-tag[data-genre="Platformer"] { background: rgba(52,211,153,0.15); color: var(--genre-platform); }
+.genre-tag[data-genre="Strategy"] { background: rgba(251,191,36,0.15); color: var(--genre-strategy); }
+.genre-tag[data-genre="Racing"] { background: rgba(56,189,248,0.15); color: var(--genre-racing); }
+.genre-tag[data-genre="Sports"] { background: rgba(251,146,60,0.15); color: var(--genre-sports); }
+.genre-tag[data-genre="Adventure"] { background: rgba(244,114,182,0.15); color: var(--genre-adventure); }
+.genre-tag[data-genre="Puzzle"] { background: rgba(45,212,191,0.15); color: var(--genre-puzzle); }
+.genre-tag[data-genre="Metroidvania"] { background: rgba(249,112,102,0.15); color: var(--genre-action); }
+.genre-tag[data-genre="Tactical RPG"] { background: rgba(251,191,36,0.15); color: var(--genre-strategy); }
+
+.card-desc {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ===== NO RESULTS ===== */
+.no-results {
+  text-align: center;
+  padding: var(--space-16) var(--space-4);
+  color: var(--color-text-muted);
+}
+
+.no-results-icon {
+  font-size: 3rem;
+  margin-bottom: var(--space-4);
+}
+
+.reset-btn {
+  margin-top: var(--space-4);
+  padding: var(--space-2) var(--space-6);
+  background: var(--color-primary);
+  color: #fff;
+  border-radius: var(--radius-full);
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.reset-btn:hover {
+  background: var(--color-primary-hover);
+}
+
+/* ===== FOOTER ===== */
+.footer {
+  border-top: 1px solid var(--color-border);
+  padding: var(--space-8) var(--space-4);
+  margin-top: var(--space-12);
+}
+
+.footer-inner {
+  max-width: var(--content-wide);
+  margin-inline: auto;
+  text-align: center;
+}
+
+.footer-text {
+  font-size: var(--text-xs);
+  color: var(--color-text-faint);
+}
+
+/* ===== ANIMATIONS ===== */
+@media (prefers-reduced-motion: reduce) {
+  .game-card {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+}
+
+/* ===== SCORE COLORS ===== */
+.score-excellent .score-fill { background: #34d399; }
+.score-great .score-fill { background: #a78bfa; }
+.score-good .score-fill { background: #fbbf24; }
